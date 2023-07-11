@@ -1,6 +1,6 @@
 # Samsung Upload Mode Dumper
 
-This is a tool that can be used to dump the memory of a Samsung device in upload mode.
+This is a tool that can be used to dump the memory of a Samsung device in __upload mode__.
 
 There are a few other tools that can do this, but I couldn't make them work, so I decided to write my own.
 
@@ -20,7 +20,7 @@ There are a few other tools that can do this, but I couldn't make them work, so 
 
 3. If you are on Windows you might need to install a driver for your device. You can do that by running `Zadig` and installing the driver for your device: [Zadig](https://zadig.akeo.ie/).
 
-## Adding your device's USB ID
+## 💻 Adding your device's USB ID
 
 If your device's USB ID is not in the `c_supported_devs` array in `dumper.h` you will need to add it.
 
@@ -44,7 +44,6 @@ If your device's USB ID is not in the `c_supported_devs` array in `dumper.h` you
 Some notes:
 
 1. Note that `print_hexdump` is optional and by default it is disabled.
-
 2. Addresses must be supplied in hexadecimal format, either with or without the `0x` prefix.
 3. The largest allowed address is `0xFFFFFFFFF`. Besides that, every address will be prefixed with `0` until it reaches a length of 9 characters (excluding the `0x` prefix).
 
