@@ -292,11 +292,11 @@ Options_t parse_options(int argc, char* argv[])
     options.output_file = fopen(options.output_file_name, "wb+");
     if (strlen(argv[2]) > 2) {
         options.start_address =
-            strtoul(!strcmp(hex_prefix, argv[2]) ? argv[2] + 2 : argv[2], NULL, 16);
+            strtoull(!strcmp(hex_prefix, argv[2]) ? argv[2] + 2 : argv[2], NULL, 16);
     }
     if (strlen(argv[3]) > 2) {
         options.end_address =
-            strtoul(!strcmp(hex_prefix, argv[3]) ? argv[3] + 2 : argv[3], NULL, 16);
+            strtoull(!strcmp(hex_prefix, argv[3]) ? argv[3] + 2 : argv[3], NULL, 16);
     }
     options.print_hexdump = (argc > 4) ? !strcmp(argv[4], "print_hexdump") : 0;
 

@@ -3,3 +3,4 @@ libusb-1.0.26-binaries.7z
 build
 .cache
 *.code-workspace
+dump.bin
