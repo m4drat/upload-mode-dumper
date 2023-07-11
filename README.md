@@ -1,5 +1,9 @@
 # Samsung Upload Mode Dumper
 
+This is a tool that can be used to dump the memory of a Samsung device in upload mode.
+
+There are a few other tools that can do this, but I couldn't make them work, so I decided to write my own.
+
 ## 🔎 Acquiring Dependencies
 
 1. Download prebuilt [libusb](https://github.com/libusb/)
@@ -18,11 +22,11 @@
 
 ## Adding your device's USB ID
 
-If your device's USB ID is not in the `usb_ids` array in `dumper.h` you will need to add it.
+If your device's USB ID is not in the `c_supported_devs` array in `dumper.h` you will need to add it.
 
 1. Run `lsusb` and find your device's USB ID.
 
-2. Add your device's USB ID to the `usb_ids` array in `dumper.h`.
+2. Add your device's USB ID to the `c_supported_devs` array in `dumper.h`.
 
 ## 🔨 Building
 
@@ -60,7 +64,7 @@ This one will dump the memory from `0x8F000000` to `0x8F010000` to `dump.bin` an
 
 ## References
 
-There are a few projects that I used as a reference for this project:
+There are a few projects that I used as a reference (and to copy some code snippets :) for this project:
 
 1. [alex-segura/s9-sboot-emu](https://github.com/alex-segura/s9-sboot-emu)
 2. [nitayart/sboot_dump](https://github.com/nitayart/sboot_dump)
