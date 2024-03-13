@@ -312,8 +312,7 @@ int main(int argc, char* argv[])
 
     Options_t options = parse_options(argc, argv);
 
-    if (!options.start_address || !options.end_address ||
-        options.start_address > options.end_address) {
+    if (!options.end_address || options.start_address > options.end_address) {
         printf(
             "Invalid address range: 0x%llX, 0x%llX\n", options.start_address, options.end_address);
         return -1;
