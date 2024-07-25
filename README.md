@@ -2,7 +2,7 @@
 
 This is a tool that can be used to dump the memory of a Samsung device in __upload mode__.
 
-There are a few other tools that can do this, but I couldn't make them work, so I decided to write my own.
+There are a few other tools that can do this, but I couldn't make them work (or they were way too slow), so I decided to write my own.
 
 ## 🔎 Acquiring Dependencies
 
@@ -35,30 +35,42 @@ If your device's USB ID is not in the `c_supported_devs` array in `dumper.h` you
 
 ## 🧪 Usage
 
-1. Run `upload_dumper` with the following arguments:
+1. Run `upload_dumper` with the following arguments to dump all memory (ranges are determined using the partition table extracted from the device):
 
-```bash
-./upload_dumper <output_file> <start_address> <end_address> <print_hexdump>
-```
+    ```bash
+    ./upload_dumper dump_all <output_directory>
+    ```
 
-Some notes:
+2. Run `upload_dumper` with the following arguments to dump a specific partition:
 
-1. Note that `print_hexdump` is optional and by default it is disabled.
-2. Addresses must be supplied in hexadecimal format, either with or without the `0x` prefix.
-3. The largest allowed address is `0xFFFFFFFFF`. Besides that, every address will be prefixed with `0` until it reaches a length of 9 characters (excluding the `0x` prefix).
+    ```bash
+    ./upload_dumper dump_index <output_file> <index>
+    ```
+
+3. Run `upload_dumper` with the following arguments to dump a specific range of memory:
+
+    ```bash
+    ./upload_dumper dump_range <output_file> <start_address> <end_address>
+    ```
 
 Examples:
+
+The following command will dump all memory to the `dump` directory.
+
+```bash
+./upload_dumper dump_all ./dump
+```
 
 The following command will dump the memory from `0x8F000000` to `0x8F010000` to `dump.bin`.
 
 ```bash
-./upload_dumper dump.bin 0x8F000000 0x8F010000
+./upload_dumper dump_range dump.bin 0x8F000000 0x8F010000
 ```
 
-This one will dump the memory from `0x8F000000` to `0x8F010000` to `dump.bin` and print the hexdump to the console.
+This one will dump the partition at index `13` to `dump.bin`.
 
 ```bash
-./upload_dumper dump.bin 8F000000 8F010000 print_hexdump
+./upload_dumper dump_index dump.bin 13
 ```
 
 ## References
@@ -67,3 +79,4 @@ There are a few projects that I used as a reference (and to copy some code snipp
 
 1. [alex-segura/s9-sboot-emu](https://github.com/alex-segura/s9-sboot-emu)
 2. [nitayart/sboot_dump](https://github.com/nitayart/sboot_dump)
+3. [bkerler/sboot_dump](https://github.com/bkerler/sboot_dump/)

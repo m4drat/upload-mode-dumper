@@ -4,3 +4,5 @@ build
 .cache
 *.code-workspace
 dump.bin
+
+dump-1

@@ -28,8 +28,34 @@ const char c_powerdown[] = "PoWeRdOwN\0";
 const char c_dataxfer[] = "DaTaXfEr\0";
 const char c_probe[] = "PrObE\0";
 
+#define MAX_PROBE_ENTRIES 0x40
+#define MAX_DEVICE_NAME 0x10
+
+typedef struct ProbeTableEntry
+{
+    uint32_t type;
+    char name[20];
+    uint64_t start;
+    uint64_t end;
+} ProbeTableEntry_t;
+
+typedef enum Mode
+{
+    MODE_32,
+    MODE_64,
+} Mode_t;
+
+typedef struct ProbeTable
+{
+    ProbeTableEntry_t entries[MAX_PROBE_ENTRIES];
+    char device_name[MAX_DEVICE_NAME];
+    uint32_t count;
+    Mode_t mode;
+} ProbeTable_t;
+
 typedef struct State
 {
+    ProbeTable_t* probe_table;
     libusb_context* ctx;
     libusb_device* device;
     libusb_device_handle* handle;
@@ -43,13 +69,28 @@ typedef struct State
 State_t g_usb_state;
 State_t* g_usb_state_ptr = &g_usb_state;
 
+typedef enum DumpMode
+{
+    DUMP_MODE_ALL,
+    DUMP_MODE_INDEX,
+    DUMP_MODE_RANGE,
+} DumpMode_t;
+
 typedef struct Options
 {
     const char* output_file_name;
-    FILE* output_file;
-    uint64_t start_address;
-    uint64_t end_address;
-    uint32_t print_hexdump;
+    char* output_path;
+    DumpMode_t dump_mode;
+
+    union
+    {
+        struct Range
+        {
+            uint64_t start_address;
+            uint64_t end_address;
+        } range;
+        uint32_t index;
+    };
 } Options_t;
 
 #ifndef min
